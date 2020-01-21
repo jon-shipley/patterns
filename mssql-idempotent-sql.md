@@ -21,7 +21,7 @@ IF NOT EXISTS (SELECT * FROM sys.indexes i
                  AND name ='idx_name')
     BEGIN
         --then the index doesn’t exist
-        CREATE INDEX idx_azure_recommended_pupil_school
+        CREATE INDEX idx_<name>
             ON [schema].[table] (colName);
     END;
 ```
