@@ -9,13 +9,13 @@
 
 ### Drop Index
 
-```
+```tsql
 DROP INDEX IF EXISTS [schema].[table].[index_name];
 ```
 
 ### Create Index
 
-```
+```tsql
 IF NOT EXISTS (SELECT * FROM sys.indexes i
                WHERE i.object_ID=object_id('schema.table')
                  AND name ='idx_name')
@@ -30,7 +30,7 @@ IF NOT EXISTS (SELECT * FROM sys.indexes i
 
 ### Drop a default value
 
-```
+```tsql
     IF EXISTS (
             select *
               from sys.all_columns c
@@ -48,7 +48,7 @@ IF NOT EXISTS (SELECT * FROM sys.indexes i
 
 ### Add a default value
 
-```
+```tsql
     IF NOT EXISTS (
             select *
               from sys.all_columns c
@@ -65,7 +65,7 @@ IF NOT EXISTS (SELECT * FROM sys.indexes i
 
 ### Drop a Foreign Key constraint
 
-```
+```tsql
 IF EXISTS(SELECT *
             FROM INFORMATION_SCHEMA.CONSTRAINT_COLUMN_USAGE
            WHERE CONSTRAINT_COLUMN_USAGE.TABLE_SCHEMA = 'schema'
@@ -80,7 +80,7 @@ IF EXISTS(SELECT *
 
 ### Add a Foreign Key Constraint 
 
-```
+```tsql
 IF NOT EXISTS(SELECT *
                 FROM INFORMATION_SCHEMA.CONSTRAINT_COLUMN_USAGE
                WHERE CONSTRAINT_COLUMN_USAGE.TABLE_SCHEMA = 'schema'
@@ -97,7 +97,7 @@ IF NOT EXISTS(SELECT *
 ## Columns
 ### Drop a column
 
-```
+```tsql
 IF EXISTS(
         SELECT * FROM sys.columns
          WHERE object_ID=object_id('schema.table')
@@ -110,7 +110,7 @@ IF EXISTS(
 ```
 
 ### Add a column
-```
+```tsql
 IF NOT EXISTS(
                 SELECT *
                 FROM sys.columns
