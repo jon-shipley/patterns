@@ -1,6 +1,11 @@
 # MSSQL Patterns
 
-## Indexs
+## Table of contents
+1. [Indexes](#Indexes)
+2. [Constraints](#Constraints)
+3. [Columns](#Columns)
+
+## Indexes
 
 ### Drop Index
 
@@ -20,7 +25,6 @@ IF NOT EXISTS (SELECT * FROM sys.indexes i
             ON [schema].[table] (colName);
     END;
 ```
-
 
 ## Constraints
 
@@ -90,7 +94,8 @@ IF NOT EXISTS(SELECT *
     END
 ```
 
-## Drop a column
+## Columns
+### Drop a column
 
 ```
 IF EXISTS(
@@ -104,7 +109,7 @@ IF EXISTS(
     END;
 ```
 
-## Add a column
+### Add a column
 ```
 IF NOT EXISTS(
                 SELECT *
