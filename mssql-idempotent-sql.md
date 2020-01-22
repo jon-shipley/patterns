@@ -1,9 +1,11 @@
 # MSSQL Patterns
 
 ## Table of contents
-1. [Indexes](#Indexes)
+1. [Columns](#Columns)
 2. [Constraints](#Constraints)
-3. [Columns](#Columns)
+3. [Indexes](#Indexes)
+4. [Tables](#Tables)
+5. [Triggers](#Triggers)
 
 ## Indexes
 
@@ -121,3 +123,60 @@ IF NOT EXISTS(
             ADD [columnName] <type>;               
     END
 ```
+
+## Tables
+## Drop table (SQL Server 2019)
+```tsql
+DROP TABLE IF EXISTS [schema].[table];
+```
+
+# Create a table
+```tsql
+IF NOT EXISTS(SELECT *
+                FROM INFORMATION_SCHEMA.TABLES
+               WHERE TABLE_NAME = 'tableName'
+                 AND TABLE_SCHEMA = 'schema')
+BEGIN
+    <table definition>
+END 
+```
+
+## Triggers
+
+You can find out if a trigger exists using something like:
+```tsql
+SELECT * FROM sys.triggers
+WHERE [parent_id] = OBJECT_ID('schema.table')
+AND [name] = 'triggerName';
+```
+
+Note: SQL Server 2019 - dropping a table automatically drops any associated triggers.
+
+### Drop a Trigger
+
+```tsql
+DROP TRIGGER IF EXISTS [schema].[triggerName];
+```
+
+### Create a trigger
+
+You probably want to make sure the table for the trigger exists and then ensure that the 
+latest trigger definition is applied.  We have to use `EXEC` to run the `CREATE TRIGGER` command 
+as otherwise we will get a syntax error.  It must be the first statement in the batch.  Using 
+`CREATE OR ALTER TRIGGER` means any old definition will be updated with the latest. 
+
+```tsql
+IF EXISTS(SELECT *
+            FROM INFORMATION_SCHEMA.TABLES
+           WHERE TABLE_NAME = 'tableName'
+             AND TABLE_SCHEMA = 'schema')
+EXEC('CREATE OR ALTER TRIGGER [schema].[triggerName]
+    ON [schema].[tableName]
+    FOR UPDATE AS
+BEGIN
+    <trigger definition>
+END')
+
+```
+
+##
