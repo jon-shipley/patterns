@@ -18,14 +18,11 @@ DROP INDEX IF EXISTS [schema].[table].[index_name];
 ### Create Index
 
 ```tsql
-IF NOT EXISTS (SELECT * FROM sys.indexes i
-               WHERE i.object_ID=object_id('schema.table')
-                 AND name ='idx_name')
-    BEGIN
-        --then the index doesn’t exist
-        CREATE INDEX idx_<name>
-            ON [schema].[table] (colName);
-    END;
+IF EXISTS(SELECT * FROM sys.indexes WHERE object_id = object_id('schema.table') AND NAME ='index_name')
+BEGIN
+    DROP INDEX index_name ON schema.table;
+END
+CREATE INDEX index_name ON schema.table([column_list]);
 ```
 
 ## Constraints
