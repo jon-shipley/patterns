@@ -6,6 +6,7 @@
 3. [Indexes](#Indexes)
 4. [Tables](#Tables)
 5. [Triggers](#Triggers)
+5. [Procedures](#Procedures)
 
 ## Indexes
 
@@ -179,4 +180,16 @@ END')
 
 ```
 
-##
+## Procedures
+
+### Drop a stored procedure
+
+```tsql 
+DROP PROCEDURE IF EXISTS [schema].<procedureName>;
+```
+
+### Create a stored procedure
+
+```tsql 
+CREATE OR REPLACE <procedureName>
+```
