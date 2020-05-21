@@ -112,7 +112,7 @@ IF EXISTS(
 Or, more simply
 
 ```tsql
- ALTER TABLE [schema].[table] DROP COLUMN IF EXISTS  [columnName], [columnName], ...;
+ ALTER TABLE [schema].[table] DROP COLUMN IF EXISTS  [columnName1], COLUMN IF EXISTS [columnName2], ...;
 ```
 
 ### Add a column
