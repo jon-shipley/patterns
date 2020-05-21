@@ -112,6 +112,12 @@ IF EXISTS(
     END;
 ```
 
+Or, more simply
+
+```tsql
+ ALTER TABLE [schema].[table] DROP COLUMN IF EXISTS  [columnName], [columnName], ...;
+```
+
 ### Add a column
 ```tsql
 IF NOT EXISTS(
