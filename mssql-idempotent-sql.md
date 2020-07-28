@@ -5,8 +5,9 @@
 2. [Constraints](#Constraints)
 3. [Indexes](#Indexes)
 4. [Tables](#Tables)
-5. [Triggers](#Triggers)
-5. [Procedures](#Procedures)
+5. [Views](#Views)
+6. [Triggers](#Triggers)
+7. [Procedures](#Procedures)
 
 ## Indexes
 
@@ -129,12 +130,13 @@ IF NOT EXISTS(
 ```
 
 ## Tables
-## Drop table (SQL Server 2019)
+
+### Drop table (SQL Server 2019)
 ```tsql
 DROP TABLE IF EXISTS [schema].[table];
 ```
 
-# Create a table
+#### Create a table
 ```tsql
 IF NOT EXISTS(SELECT *
                 FROM INFORMATION_SCHEMA.TABLES
@@ -143,6 +145,24 @@ IF NOT EXISTS(SELECT *
 BEGIN
     <table definition>
 END 
+```
+
+## Views
+
+# Drop a view
+```tsql
+DROP VIEW IF EXISTS [schema].[viewName];
+```
+
+# Create a view
+Just drop it and then create it.
+
+```tsql
+DROP VIEW IF EXISTS [schema].[viewName];
+
+CREATE VIEW [schema].[viewName]
+AS
+SELECT * from [schema.table];
 ```
 
 ## Triggers
