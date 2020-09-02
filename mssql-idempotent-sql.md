@@ -9,6 +9,10 @@
 6. [Triggers](#Triggers)
 7. [Procedures](#Procedures)
 
+## Reserved words checking tool
+
+<https://www.petefreitag.com/tools/sql_reserved_words_checker>
+
 ## Indexes
 
 ### Drop Index
@@ -216,3 +220,6 @@ DROP PROCEDURE IF EXISTS [schema].<procedureName>;
 ```tsql 
 CREATE OR REPLACE <procedureName>
 ```
+
+
+[https://www.petefreitag.com/tools/sql_reserved_words_checker]: https://www.petefreitag.com/tools/sql_reserved_words_checker
