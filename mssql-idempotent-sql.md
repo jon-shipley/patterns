@@ -8,6 +8,7 @@
 5. [Views](#Views)
 6. [Triggers](#Triggers)
 7. [Procedures](#Procedures)
+8. [Documentation](#Documentation)
 
 ## Reserved words checking tool
 
@@ -222,4 +223,63 @@ CREATE OR REPLACE <procedureName>
 ```
 
 
-[https://www.petefreitag.com/tools/sql_reserved_words_checker]: https://www.petefreitag.com/tools/sql_reserved_words_checker
+## Documentation
+
+### View documentation on extended attributes
+
+These queries allow you to see all the documentation on columns and database objects in a single result view for each.
+
+```tsql
+-- Useful queries here: https://www.mssqltips.com/sqlservertip/5384/working-with-sql-server-extended-properties/
+--
+
+-- Get column level extended attributes
+--
+SELECT
+    s.name schemaName,
+	t.name tableName,
+	c.name columnName,
+	CAST(
+		e.value AS NVARCHAR(MAX)
+	) extendedProperties
+FROM
+	sys.schemas s
+	JOIN sys.tables t ON (s.schema_id = t.schema_id)
+	JOIN sys.columns c ON t.object_id = c.object_id
+	LEFT JOIN sys.extended_properties e ON (t.object_id = e.major_id)
+	AND c.column_id = e.minor_id
+	AND e.name = 'MS_Description'
+ORDER BY
+	s.name,
+	t.name,
+	c.column_id; 
+	
+
+-- Get table level extended attributes
+--
+SELECT
+	SCHEMA_NAME(t.schema_id) AS SchemaName,
+	t.name AS tableName,
+	p.name AS ExtendedPropertyName,
+	CAST(p.value AS nvarchar(max)) AS ExtendedPropertyValue
+FROM
+	sys.tables AS t
+	INNER JOIN sys.extended_properties AS p ON p.major_id = t.object_id
+	AND p.minor_id = 0
+	AND p.class = 1;
+```
+
+### Add a comment to a Table
+
+```tsql
+EXEC sys.sp_addextendedproperty @name = N'MS_Description', @value = N'This table does something wonderful...',
+     @level0type = N'SCHEMA', @level0name = '<your schema>', @level1type = N'TABLE', @level1name = '<your table name>';
+```
+
+### Add a comment to a Column
+```tsql
+EXEC sys.sp_addextendedproperty @name = N'MS_Description', @value = 'A wonderful comment about the column.', @level0type = N'Schema',
+     @level0name = '<your schema>', @level1type = N'Table', @level1name = '<your table name>', @level2type = N'Column',
+     @level2name = '<your col name>';
+```
+      
