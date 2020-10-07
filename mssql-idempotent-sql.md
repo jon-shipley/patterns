@@ -9,6 +9,7 @@
 6. [Triggers](#Triggers)
 7. [Procedures](#Procedures)
 8. [Documentation](#Documentation)
+9. [Users](#Users)
 
 ## Reserved words checking tool
 
@@ -281,5 +282,35 @@ EXEC sys.sp_addextendedproperty @name = N'MS_Description', @value = N'This table
 EXEC sys.sp_addextendedproperty @name = N'MS_Description', @value = 'A wonderful comment about the column.', @level0type = N'Schema',
      @level0name = '<your schema>', @level1type = N'Table', @level1name = '<your table name>', @level2type = N'Column',
      @level2name = '<your col name>';
+```
+
+
+## Users
+### Check to see if a user exists
+```tsql
+SELECT
+    name AS username,
+	create_date,
+	modify_date,
+	type_desc AS TYPE,
+	authentication_type_desc AS authentication_type
+FROM
+	sys.database_principals
+WHERE
+	TYPE NOT IN ('A', 'G', 'R', 'X')
+	AND sid IS NOT NULL
+ORDER BY
+	username;
+```
+
+So you can check to see if a user exists before creating it:
+
+```tsql 
+IF NOT EXISTS (SELECT [name]
+                FROM [sys].[database_principals]
+                WHERE [type] = N'S' AND [name] = N'<NEW_USER>')
+BEGIN
+    CREATE USER [<NEW_USER>] WITH PASSWORD [<PASSWORD>], DEFAULT_SCHEMA=[<SOME_SCHEMA>]
+END
 ```
       
