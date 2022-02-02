@@ -135,6 +135,25 @@ IF NOT EXISTS(
     END
 ```
 
+### Add a column with a named default value
+```tsql
+ALTER TABLE [schema].[table]
+ADD [columnName] <type>
+CONSTRAINT [DF_<columnName>] DEFAULT 'defaultValue' NOT NULL;  
+```
+
+### Remove NOT NULL 
+
+```mssql
+ALTER TABLE
+  tblname
+ALTER COLUMN
+  colname
+    NVARCHAR(20) NOT NULL;
+```
+
+
+
 ## Tables
 
 ### Drop table (SQL Server 2019)
@@ -313,4 +332,3 @@ BEGIN
     CREATE USER [<NEW_USER>] WITH PASSWORD [<PASSWORD>], DEFAULT_SCHEMA=[<SOME_SCHEMA>]
 END
 ```
-      
