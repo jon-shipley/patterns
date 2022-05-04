@@ -38,19 +38,8 @@ CREATE INDEX index_name ON schema.table([column_list]);
 ### Drop a default value
 
 ```tsql
-    IF EXISTS (
-            select *
-              from sys.all_columns c
-                   join sys.tables t on t.object_id = c.object_id
-                   join sys.schemas s on s.schema_id = t.schema_id
-                   join sys.default_constraints d on c.default_object_id = d.object_id
-             where t.name = 'table'
-               and c.name = 'columnName'
-               and s.name = 'schema')
-        BEGIN
-            ALTER TABLE [schema].[table]
-            DROP CONSTRAINT [DF_<name>];
-        END
+    ALTER TABLE [schema].[table]
+    DROP CONSTRAINT IF EXISTS [DF_<name>];
 ```
 
 ### Add a default value
