@@ -1,5 +1,5 @@
 # patterns
-Useful reference patterns
+Useful MSSQL reference patterns
 
 ## MS SQL Server
 1. [Idempotent migrations](./mssql-idempotent-sql.md)
