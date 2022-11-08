@@ -293,12 +293,15 @@ EXEC sys.sp_addextendedproperty @name = N'MS_Description', @value = 'A wonderful
 ```
 
 ### Remove a comment from a Column
+```tsql
 EXEC sys.sp_dropextendedproperty @name = N'MS_Description',
 @level0name = '<your schema>',
 @level1type = N'Table',
 @level1name = '<your table>',
 @level2type = N'Column',
 @level2name = '<your column name>';
+```
+
 
 
 ## Users
