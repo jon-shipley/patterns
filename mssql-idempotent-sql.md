@@ -74,6 +74,11 @@ IF EXISTS(SELECT *
     END
 ```
 
+Or simply
+```mssql
+ALTER TABLE [schema].[table] DROP CONSTRAINT IF EXISTS [FK_<name>];
+```
+
 ### Add a Foreign Key Constraint 
 
 ```tsql
