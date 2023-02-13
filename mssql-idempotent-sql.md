@@ -75,7 +75,7 @@ IF EXISTS(SELECT *
 ```
 
 Or simply
-```mssql
+```tsql
 ALTER TABLE [schema].[table] DROP CONSTRAINT IF EXISTS [FK_<name>];
 ```
 
