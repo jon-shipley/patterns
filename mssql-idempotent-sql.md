@@ -174,12 +174,8 @@ DROP VIEW IF EXISTS [schema].[viewName];
 ```
 
 # Create a view
-Just drop it and then create it.
-
 ```tsql
-DROP VIEW IF EXISTS [schema].[viewName];
-
-CREATE VIEW [schema].[viewName]
+CREATE OR ALTER VIEW [schema].[viewName]
 AS
 SELECT * from [schema.table];
 ```
